@@ -16,7 +16,7 @@ describe('Thermostat', function() {
     expect(thermostat.currentTemperature()).toEqual(21);
   });
 
-  it('can decrease t he temperature by 1', function() {
+  it('can decrease the temperature by 1', function() {
     thermostat.down();
     expect(thermostat.currentTemperature()).toEqual(19);
   });
@@ -56,19 +56,26 @@ describe('Thermostat', function() {
   });
 
   describe('when power saving mode is on', function() {
+
     it('maximum temperature allowed is 25 degrees', function() {
       thermostat._temperature = 25;
       thermostat.up();
       expect(thermostat.currentTemperature()).toEqual(25);
     });
+
+    it('Reduces temperature to new maximum of 25 degrees if above 25', function () {
+      thermostat.switchPowerSavingMode();
+      thermostat._temperature = 30;
+      thermostat.switchPowerSavingMode();
+      expect(thermostat.currentTemperature()).toEqual(25);
+    });
   });
 
   describe('when power saving mode is off', function() {
+
     it('maximum temperature allowed is 32 degrees', function() {
-      thermostat._temperature = 28;
       thermostat.switchPowerSavingMode();
-      thermostat.up();
-      expect(thermostat.currentTemperature()).toEqual(29);
+      expect(thermostat.maximumTemperature).toEqual(32);
     });
   });
 });

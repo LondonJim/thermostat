@@ -33,11 +33,15 @@ Thermostat.prototype.reset = function () {
 };
 
 Thermostat.prototype.energyUsage = function () {
-  return (this.currentTemperature() < 18 ? 'low' : (this.currentTemperature() < 25 ? 'medium' : 'high' )).concat('-usage');
+  return (this.currentTemperature() < 18 ? 'low' : (this.currentTemperature() < 26 ? 'medium' : 'high' )).concat('-usage');
 };
 
 Thermostat.prototype.temperatureCheck = function () {
   if (this._temperature > this.maximumTemperature ) {
     this._temperature = this.maximumTemperature
   };
+};
+
+Thermostat.prototype.powerSavingState = function() {
+  return (this.isPowerSavingMode ? 'on' : 'off' )
 };
